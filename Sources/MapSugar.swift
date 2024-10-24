@@ -1,7 +1,7 @@
 import Foundation
 
 /// Functions that make mapping dictionaries easier
-public extension Dictionary {
+extension Dictionary {
   /// Helper method to map keys of a dictionary!
   ///
   /// Returns a new dictionary containing the keys and values of this dictionary with the
@@ -22,7 +22,7 @@ public extension Dictionary {
   ///
   /// print(newDictionary) // ["A": 1, "B": 2]
   /// ```
-  @inlinable func mapKeys<K: Hashable>(_ transform: (Key) -> K) -> [K: Value] {
+  @inlinable public func mapKeys<K: Hashable>(_ transform: (Key) -> K) -> [K: Value] {
     return self.reduce(into: [K: Value]()) { result, pair in
       let (key, value) = pair
       result[transform(key)] = value
@@ -51,7 +51,7 @@ public extension Dictionary {
   ///
   /// print(newDictionary) // ["a": "a1", "b": "b2"]
   /// ```
-  @inlinable func mapValuesUsingKeys<T>(_ transform: (Value, Key) -> T) -> [Key: T] {
+  @inlinable public func mapValuesUsingKeys<T>(_ transform: (Value, Key) -> T) -> [Key: T] {
     return self.reduce(into: [Key: T]()) { result, pair in
       let (key, value) = pair
       result[key] = transform(value, key)
@@ -79,7 +79,9 @@ public extension Dictionary {
   ///
   /// print(newDictionary) // ["A": "X", "B": "Y"]
   /// ```
-  @inlinable func mapKeysAndValues<K: Hashable, V>(_ transform: (Key, Value) -> (K, V)) -> [K: V] {
+  @inlinable public func mapKeysAndValues<K: Hashable, V>(
+    _ transform: (Key, Value) -> (K, V)
+  ) -> [K: V] {
     return self.reduce(into: [K: V]()) { result, pair in
       let (newKey, newValue) = transform(pair.key, pair.value)
       result[newKey] = newValue
