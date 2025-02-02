@@ -4,7 +4,7 @@
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fmesqueeb%2FMapSugar%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/mesqueeb/MapSugar)
 
 ```
-.package(url: "https://github.com/mesqueeb/MapSugar", from: "0.1.0")
+.package(url: "https://github.com/mesqueeb/MapSugar", from: "0.1.4")
 ```
 
 Swift helpers to easier map things like `.mapKeys`, `.mapKeysAndValues`, `.mapValuesUsingKeys`
