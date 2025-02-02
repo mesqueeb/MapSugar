@@ -31,7 +31,7 @@ import Testing
 @Test func mapKeysAsync() async throws {
   let newDictionary = await ["a": 1, "b": 2]
     .mapKeysAsync { key in
-      try! await Task.sleep(for: .milliseconds(100))
+      try! await Task.sleep(nanoseconds: 10_000_000)
       return key.uppercased()
     }
 
@@ -41,7 +41,7 @@ import Testing
 @Test func mapValuesAsync() async throws {
   let newDictionary = await ["a": 1, "b": 2]
     .mapValuesAsync { value in
-      try! await Task.sleep(for: .milliseconds(100))
+      try! await Task.sleep(nanoseconds: 10_000_000)
       return "\(value)!"
     }
 
@@ -51,7 +51,7 @@ import Testing
 @Test func mapValuesUsingKeysAsync() async throws {
   let newDictionary = await ["a": 1, "b": 2]
     .mapValuesUsingKeysAsync { value, key in
-      try! await Task.sleep(for: .milliseconds(100))
+      try! await Task.sleep(nanoseconds: 10_000_000)
       return "\(key)\(value)"
     }
 
@@ -61,7 +61,7 @@ import Testing
 @Test func mapKeysAndValuesAsync() async throws {
   let newDictionary = await ["a": "x", "b": "y"]
     .mapKeysAndValuesAsync { key, value in
-      try! await Task.sleep(for: .milliseconds(100))
+      try! await Task.sleep(nanoseconds: 10_000_000)
       return (key.uppercased(), value.uppercased())
     }
 
