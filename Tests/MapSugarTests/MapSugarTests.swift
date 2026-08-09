@@ -27,6 +27,14 @@ import Testing
   #expect(newDictionary == ["a": "a1", "b": "b2"])
 }
 
+@Test func mapValuesUsingKeysRethrows() {
+  enum TestError: Error { case bad }
+
+  #expect(throws: TestError.bad) {
+    _ = try ["a": 1].mapValuesUsingKeys { _, _ -> String in throw TestError.bad }
+  }
+}
+
 @Test func mapKeysAndValues() throws {
   let newDictionary = ["a": "x", "b": "y"]
     .mapKeysAndValues { key, value in (key.uppercased(), value.uppercased()) }

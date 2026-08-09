@@ -52,10 +52,12 @@ extension Dictionary {
   ///
   /// print(newDictionary) // ["a": "a1", "b": "b2"]
   /// ```
-  @inlinable public func mapValuesUsingKeys<T>(_ transform: (Value, Key) -> T) -> [Key: T] {
-    return self.reduce(into: [Key: T]()) { result, pair in
+  @inlinable public func mapValuesUsingKeys<T>(
+    _ transform: (Value, Key) throws -> T
+  ) rethrows -> [Key: T] {
+    return try self.reduce(into: [Key: T]()) { result, pair in
       let (key, value) = pair
-      result[key] = transform(value, key)
+      result[key] = try transform(value, key)
     }
   }
 
