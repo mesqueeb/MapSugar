@@ -105,3 +105,12 @@ import Testing
 
   #expect(newDictionary == ["A": "X", "B": "Y"])
 }
+
+@Test func mapKeysAndValuesAsyncRethrows() async {
+  enum TestError: Error { case bad }
+
+  await #expect(throws: TestError.bad) {
+    _ = try await ["a": "x"]
+      .mapKeysAndValuesAsync { _, _ -> (String, String) in throw TestError.bad }
+  }
+}
