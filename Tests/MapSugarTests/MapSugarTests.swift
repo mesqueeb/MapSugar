@@ -9,6 +9,12 @@ import Testing
   #expect(newDictionary == ["A": 1, "B": 2])
 }
 
+@Test func mapKeysRethrows() {
+  enum TestError: Error { case bad }
+
+  #expect(throws: TestError.bad) { _ = try ["a": 1].mapKeys { _ -> String in throw TestError.bad } }
+}
+
 @Test func mapValues() throws {
   let newDictionary = ["a": 1, "b": 2].mapValues { value in "\(value)!" }
 

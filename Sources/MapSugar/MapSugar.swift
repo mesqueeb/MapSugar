@@ -22,10 +22,11 @@ extension Dictionary {
   ///
   /// print(newDictionary) // ["A": 1, "B": 2]
   /// ```
-  @inlinable public func mapKeys<K: Hashable>(_ transform: (Key) -> K) -> [K: Value] {
-    return self.reduce(into: [K: Value]()) { result, pair in
+  @inlinable public func mapKeys<K: Hashable>(_ transform: (Key) throws -> K) rethrows -> [K: Value]
+  {
+    return try self.reduce(into: [K: Value]()) { result, pair in
       let (key, value) = pair
-      result[transform(key)] = value
+      result[try transform(key)] = value
     }
   }
 
