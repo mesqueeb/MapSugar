@@ -114,11 +114,11 @@ extension Dictionary {
   /// print(newDictionary) // ["A": 1, "B": 2]
   /// ```
   @inlinable public func mapKeysAsync<K>(
-    _ transform: @Sendable @escaping (Key) async -> K
-  ) async -> [K: Value] where K: Hashable & Sendable, Key: Sendable, Value: Sendable {
-    return await withTaskGroup(of: (K, Value).self) { group in
-      for (key, value) in self { group.addTask { (await transform(key), value) } }
-      return await group.reduce(into: [K: Value]()) { result, pair in result[pair.0] = pair.1 }
+    _ transform: @Sendable @escaping (Key) async throws -> K
+  ) async rethrows -> [K: Value] where K: Hashable & Sendable, Key: Sendable, Value: Sendable {
+    return try await withThrowingTaskGroup(of: (K, Value).self) { group in
+      for (key, value) in self { group.addTask { (try await transform(key), value) } }
+      return try await group.reduce(into: [K: Value]()) { result, pair in result[pair.0] = pair.1 }
     }
   }
 
