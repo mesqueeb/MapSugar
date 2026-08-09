@@ -83,10 +83,10 @@ extension Dictionary {
   /// print(newDictionary) // ["A": "X", "B": "Y"]
   /// ```
   @inlinable public func mapKeysAndValues<K: Hashable, V>(
-    _ transform: (Key, Value) -> (K, V)
-  ) -> [K: V] {
-    return self.reduce(into: [K: V]()) { result, pair in
-      let (newKey, newValue) = transform(pair.key, pair.value)
+    _ transform: (Key, Value) throws -> (K, V)
+  ) rethrows -> [K: V] {
+    return try self.reduce(into: [K: V]()) { result, pair in
+      let (newKey, newValue) = try transform(pair.key, pair.value)
       result[newKey] = newValue
     }
   }
